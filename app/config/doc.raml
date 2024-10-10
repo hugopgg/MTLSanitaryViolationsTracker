@@ -1,0 +1,309 @@
+#%RAML 1.0
+
+title: Montreal Food Inspection Violations API
+mediaType: application/json
+
+types:
+  Violation:
+    properties:
+      id_poursuite:
+        type: number
+        required: true
+      buisness_id:
+        type: number
+        required: true
+      date:
+        type: string
+        format: date
+        required: true
+      description:
+        type: string
+        required: true
+      adresse:
+        type: string
+        required: true
+      date_jugement:
+        type: string
+        format: date
+        required: true
+      etablissement:
+        type: string
+        required: true
+      montant:
+        type: number
+        required: true
+      proprietaire:
+        type: string
+        required: true
+      ville:
+        type: string
+        required: true
+      statut:
+        type: string
+        required: true
+      date_statut:
+        type: string
+        format: date
+        required: true
+      categorie:
+        type: string
+        required: true
+
+  ViolationSummary:
+    properties:
+      etablissement:
+        type: string
+        required: true
+      nombre_infractions:
+        type: number
+        required: true
+
+  DemandeInspection:
+    properties:
+      id_demande:
+        type: number
+        required: true
+      etablissement:
+        type: string
+        required: true
+      adresse:
+        type: string
+        required: true
+      ville:
+        type: string
+        required: true
+      date_demande:
+        type: string
+        format: date
+        required: true
+      nom_client:
+        type: string
+        required: true
+      description_demande:
+        type: string
+        required: true
+
+  UpdateContrevenant:
+    properties:
+      buisness_id:
+        type: number
+        required: true
+      etablissement:
+        type: string
+        maxLength: 100
+        required: true
+
+  User:
+    properties:
+      nom:
+        type: string
+        maxLength: 50
+        required: true
+      prenom:
+        type: string
+        maxLength: 50
+        required: true
+      username:
+        type: string
+        maxLength: 50
+        required: true
+      email:
+        type: string
+        format: email
+        maxLength: 100
+        required: true
+      password:
+        type: string
+        minLength: 8
+        required: true
+      etablissements:
+        type: array
+        items: 
+          type: string
+          maxLength: 100
+        required: true
+
+
+/api:
+  /violations:
+    get:
+      description: Retrieve data for all violations between two dates
+      queryParameters:
+        du:
+          description: Start date for filtering (YYYY-MM-DD)
+          type: string
+          required: true
+        au:
+          description: End date for filtering (YYYY-MM-DD)
+          type: string
+          required: true
+      responses:
+        200:
+          body:
+            application/json:
+              type: Violation[]
+        400:
+          description: Bad request
+        404:
+          description: No violations found
+
+  /violations/{buisness_id}:
+    get:
+      description: Retrieve all violations associated with a specific buisness_id
+      uriParameters:
+        buisness_id:
+          description: The ID of the buisness to get violations for.
+          type: number
+          required: true
+      responses:
+        200:
+          body:
+            application/json:
+              type: Violation[]
+        404:
+          description: No violations found for the specified buisness_id
+
+  /violations/summary.json:
+    get:
+      description: 'Get violations summary in JSON (# of infractions by etablissement)'
+      responses:
+        200:
+          body:
+            application/json:
+              type: ViolationSummary[]
+        404:
+          description: No violations found
+
+  /violations/summary.xml:
+    get:
+      description: 'Get violations summary in XML (# of infractions by etablissement)'
+      responses:
+        200:
+          body:
+            application/xml:
+              example: |
+                <all_violations_summary>
+                  <violation_summary>
+                    <etablissement>RESTAURANT UQAM</etablissement>
+                    <nombre_infractions>12987</nombre_infractions>
+                  </violation_summary>
+                </all_violations_summary>
+        404:
+          description: No violations found
+
+  /violations/summary.csv:
+    get:
+      description: 'Get violations summary in CSV (# of infractions by etablissement)'
+      responses:
+        200:
+          body:
+            text/csv:
+              type: ViolationSummary[]
+        404:
+          description: No violations found
+
+  /update_violations/{buisness_id}:
+    put:
+      description: Update the etablissement name for all violations associated with a specific buisness_id
+      uriParameters:
+        buisness_id:
+          description: The ID of the buisness to update violations for.
+          type: number
+          required: true
+      body:
+        application/json:
+          type: UpdateContrevenant
+      responses:
+        200:
+          description: Violations have been successfully updated
+        400:
+          description: Bad request
+        500:
+          description: An internal error occurred. The error has been reported to the development team.
+
+  /delete_violations/{buisness_id}:
+    delete:
+      description: Delete all violations of etablissement with buisness_id
+      uriParameters:
+        buisness_id:
+          description: The ID of the buisness to delete violations for.
+          type: number
+          required: true     
+      responses:
+        200:
+          description: Violations successfully deleted
+        400:
+          description: Bad request (ex: Username already exists)
+        500:
+          description: An internal error occurred. The error has been reported to the development team.
+
+
+  /demande_inspection:
+    post:
+      description: Create a new inspection request
+      body:
+        application/json:
+          type: DemandeInspection
+      responses:
+        201:
+          description: Request successfully processed
+          body:
+            application/json:
+              example: |
+                {
+                  "id_demande": 12345,
+                  "etablissement": "Restaurant ABC",
+                  "adresse": "123 rue de la Rue",
+                  "ville": "Montréal",
+                  "date_demande": "2024-04-01",
+                  "nom_client": "John Doe",
+                  "description_demande": "Inspection requise pour vérifier la conformité aux normes sanitaires."
+                }
+        400:
+          description: Bad request
+        500:
+          description: An internal error occurred. The error has been reported to the development team.
+
+  /demande_inspection/{id_demande}:
+    delete:
+      description: Delete an inspection request
+      uriParameters:
+        id_demande:
+          description: The ID of the inspection request.
+          type: number
+          required: true
+      responses:
+        200:
+          description: Inspection request have been successfully deleted
+        400:
+          description: Bad request
+        500:
+          description: An internal error occurred. The error has been reported to the development team.
+  /api/create_user:
+    post:
+      description: Create a new user
+      body:
+        application/json:
+          type: User
+      responses:
+        201:
+          description: User successfully created
+          body:
+            application/json:
+              example: |
+                {
+                  "nom": "Doe",
+                  "prenom": "John",
+                  "username": "johndoe",
+                  "email": "john.doe@example.com",
+                  "password": "motdepasse123",
+                  "etablissements": [
+                    "Restaurant ABC",
+                    "Hôtel XYZ",
+                    "Café MNO" 
+                    ]                            
+                }
+        400:
+          description: Bad request
+        500:
+          description: An internal error occurred. The error has been reported to the development team.

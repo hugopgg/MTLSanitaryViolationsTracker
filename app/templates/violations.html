@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Contraventions{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    {% if violations_search %}
+    <h2 class="titles text-center mb-4">Résultats de la recherche : {{ violations_search|length }} résultat(s)</h2>
+
+    {% for violation in violations_search %}
+    <div class="card article-card">
+        <div class="card-header">
+            <h5 class="card-title">ID de la poursuite: {{ violation.id_poursuite }}</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>Établissement:</strong> {{ violation.etablissement }}</p>
+            <p class="card-text"><strong>Catégorie:</strong> {{ violation.categorie }}</p>
+            <p class="card-text"><strong>Date:</strong> {{ violation.date.strftime('%Y-%m-%d') }}</p>
+            <p class="card-text"><strong>Description:</strong> {{ violation.description }}</p>
+            <p class="card-text"><strong>Adresse:</strong> {{ violation.adresse }}</p>            
+            <p class="card-text"><strong>Montant:</strong> {{ violation.montant }}</p>
+            <p class="card-text"><strong>Propriétaire:</strong> {{ violation.proprietaire }}</p>
+            <p class="card-text"><strong>Ville:</strong> {{ violation.ville }}</p>
+            <p class="card-text"><strong>Statut:</strong> {{ violation.statut }}</p>
+            <p class="card-text"><strong>Date de jugement:</strong> {{ violation.date_jugement.strftime('%Y-%m-%d') }}</p>
+            <p class="card-text"><strong>Date de statut:</strong> {{ violation.date_statut.strftime('%Y-%m-%d') }}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <h2 class="titles text-center">Aucune infractions trouvées.</h2>
+    {% endif %}
+
+</div>
+
+{% endblock %}

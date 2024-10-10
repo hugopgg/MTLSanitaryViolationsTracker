@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* Variables */
+:root {
+    --main-font: "Judson", serif;
+    --main-color: #721817;
+    --link-color: #2B4162;
+    --form-label-color: #0B6E4F;
+    --btn-primary-color: #0B6E4F;
+    --btn-secondary-color: #0B6E4F;
+}
+
+/* General */
+html,
+body {
+    font-family: var(--main-font) !important;
+}
+
+.titles {
+    color: var(--main-color) !important;
+}
+
+.navbar-brand {
+    color: var(--main-color) !important;
+    font-size: 28px !important;
+    font-weight: bold !important;
+}
+
+.menu {
+    margin-left: auto !important;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    left: auto;
+    margin-right: 20px !important;
+}
+
+.dropdown-item {
+    color: var(--main-color) !important;
+}
+
+.nav-link {
+    color: var(--link-color) !important;
+    font-size: 20px !important;
+}
+
+.form-label {
+    color: var(--form-label-color);
+}
+
+/* Violations */
+.card {
+    margin-bottom: 20px !important;
+}
+
+.card-title {
+    color: var(--link-color) !important;
+    font-size: 1.25rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.card-text {
+    margin-bottom: 0.5rem !important;
+    text-align: left !important;
+}
+
+.container {
+    margin: 20px auto !important;
+    max-width: 800px !important;
+}
+
+/* Index */
+.index-btns-table,
+.index-btn-mod {
+    padding: 0.2rem 0.4rem !important;
+    font-size: 0.8rem !important;
+}
+
+/* Barres de recherche  */
+
+.input-group, #search-form-dates .row.mb-4 {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.input-group input.form-control {
+    border: 1px solid var(--form-label-color);
+}
+
+.input-group-append button.btn {
+    border: 1px solid var(--form-label-color);
+}
+
+#search-form-dates .row.mb-4 {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.form-select {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#search-form-dates input.form-control {
+    border: 1px solid var(--form-label-color);
+}
+
+#search-form-dates button.btn {
+    border: 1px solid var(--form-label-color);
+}
+
+
+/* Boutons */
+.btn-primary {
+    background-color: var(--btn-primary-color) !important;
+    border-color: var(--form-label-color) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    color: var(--main-color) !important;
+}
+
+.btn-secondary {
+    background-color: var(--btn-secondary-color) !important;
+    border-color: var(--form-label-color) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    color: var(--main-color) !important;
+}

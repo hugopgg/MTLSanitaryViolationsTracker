@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Se connecter{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="titles text-center mb-4">Connexion</h1>
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+            <form id="loginForm" method="post" action="{{ url_for('login') }}">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Nom d'utilisateur:</label>
+                    <input type="text" class="form-control" id="username" name="username" value="">
+                    <div id="usernameError" class="text-danger"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mot de passe:</label>
+                    <input type="password" class="form-control" id="password" name="password" value="">
+                    <div id="passwordError" class="text-danger"></div>
+                </div>
+                <button type="submit" class="btn btn-primary">Se connecter</button>
+            </form>
+            <div class="text-center mt-3">
+                <p>Vous n'avez pas de compte ? <a href="{{ url_for('registration') }}">S'inscrire</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/login.js"></script>
+
+
+
+
+
+
+{% endblock %}

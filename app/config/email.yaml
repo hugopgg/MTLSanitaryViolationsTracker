@@ -1,0 +1,8 @@
+# Pour tester avec un serveur smtp local: python -m smtpd -c DebuggingServer -n localhost:1025
+
+smtp_server: "localhost" # smtp.gmail.com ou autre
+smtp_port: 1025    # 587 
+smtp_username: "todo"
+smtp_password: "todo"
+sender_email: "todo"
+receiver_email: "todo" # personne_recevant_des_affaires@email.com

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Faire une demande d'inspection{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h1 class="titles text-center mb-4">Faire une demande d'inspection:</h1>
+    <form id="demandeInspectionForm" method="post" action="#">
+        <div class="mb-3">
+            <label for="etablissement" class="form-label">Etablissement:</label>
+            <input type="text" class="form-control" id="etablissement" name="etablissement" value="">
+            <div id="etablissementError" class="text-danger"></div>
+        </div>
+        <div class="mb-3">
+            <label for="adresse" class="form-label">Adresse:</label>
+            <input type="text" class="form-control" id="adresse" name="adresse" value="">
+            <div id="adresseError" class="text-danger"></div>
+        </div>
+        <div class="mb-3">
+            <label for="ville" class="form-label">Ville:</label>
+            <input type="text" class="form-control" id="ville" name="ville" value="">
+            <div id="villeError" class="text-danger"></div>
+        </div>
+        <div class="mb-3">
+            <label for="date_demande" class="form-label">Date de demande:</label>
+            <input type="date" class="form-control" id="date_demande" name="date_demande" value="">
+            <div id="dateDemandeError" class="text-danger"></div>
+        </div>
+        <div class="mb-3">
+            <label for="nom_client" class="form-label">Votre nom:</label>
+            <input type="text" class="form-control" id="nom_client" name="nom_client" value="">
+            <div id="nomClientError" class="text-danger"></div>
+        </div>
+        <div class="mb-3">
+            <label for="description_demande" class="form-label">Description de la demande:</label>
+            <textarea class="form-control" id="description_demande" name="description_demande" rows="5"></textarea>
+            <div id="descriptionDemandeError" class="text-danger"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Envoyer la demande d'inspection</button>
+    </form>
+</div>
+
+<script src="/static/js/inspection.js"></script>
+
+{% endblock %}

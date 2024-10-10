@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="titles text-center">Infractions Alimentaires MTL</h1>
+
+    <div class="container">
+        <h2 class="titles text-center mt-4">Rechercher une infraction:</h2>
+        <form action="{{ url_for('search_violations') }}" method="GET" class="mt-4">
+            <div class="input-group">
+                <input type="text" class="form-control" name="criteria" placeholder="Rechercher une infraction">
+                <div class="input-group-append">
+                    <button class="btn btn-secondary mx-2" type="submit">Rechercher</button>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="search_type" id="search_nom"
+                        value="etablissement" checked>
+                    <label class="form-check-label" for="search_nom">Nom d'établissement</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="search_type" id="search_proprietaire"
+                        value="proprietaire">
+                    <label class="form-check-label" for="search_proprietaire">Propriétaire</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="search_type" id="search_rue" value="rue">
+                    <label class="form-check-label" for="search_rue">Adresse</label>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2 class="titles text-center mt-4">Recherche par période:</h2>
+        <form action="#" method="GET" class="mt-4" id="search-form-dates">
+            <div class="row mb-4">
+                <div class="col">
+                    <label for="start_date">Du:</label>
+                    <input type="date" class="form-control" id="start_date" name="du">
+                </div>
+                <div class="col">
+                    <label for="end_date">Au:</label>
+                    <input type="date" class="form-control" id="end_date" name="au">
+                </div>
+                <div class="col-auto align-self-end">
+                    <button class="btn btn-secondary" type="submit" onclick="">Rechercher</button>
+                </div>
+            </div>
+            <div id="drop-res">
+                <div id="zero-res"></div>
+            </div>
+            <div class="col">
+                <h2 class="titles text-center mt-4">Établissements:</h2>
+                <select name="etablissement" id="list-etablissement" class="form-select mb-4 mt-4">
+                    <option value="">Liste des établissements</option>
+                    {% for etablissement in etablissements %}
+                    <option value="{{etablissement[1]}}">{{etablissement[0]}} ({{etablissement[1]}})</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+        <div>
+            <div class="container mt-4" id="table-container"> </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/index.js"></script>
+{% endblock %}
